@@ -1,0 +1,32 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "titre": "publication1",
+      "description": "desc1",
+      "categorie": "sport",
+      "date": "15/01/2024"
+    },
+    {
+      "id": 2,
+      "titre": "publication2",
+      "description": "desc2",
+      "categorie": "technologie",
+      "date": "15/01/2024"
+    },
+    {
+      "id": 3,
+      "titre": "publication3",
+      "description": "desc3",
+      "categorie": "economie",
+      "date": "15/01/2024"
+    },
+    {
+      "id": 4,
+      "titre": "publication4",
+      "description": "desc4",
+      "categorie": "culture",
+      "date": "15/01/2024"
+    }
+  ]
+}
