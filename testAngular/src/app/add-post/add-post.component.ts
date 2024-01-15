@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { PostService } from '../post.service';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-post.component.css']
 })
 export class AddPostComponent {
-  
+  postForm!: FormGroup
+   get titre(){
+    return this.postForm.get('titre')
+  }
+  get description(){
+    return this.postForm.get('description')
+  }
+  get categorie(){
+    return this.postForm.get('categorie')
+  }
+  get date(){
+    return this.postForm.get('date')
+  }
+
 public posts:any=[]
 newPost:any={
   titre:'',
@@ -18,12 +31,15 @@ newPost:any={
   date:'',
 
 }
-constructor(private postService:PostService,private router:Router){}
+constructor(private postService:PostService,private router:Router,private fb:FormBuilder){}
 ngOnInit(): void {
-
-  this.postService.getPosts()
-    .subscribe(data => this.posts=data)
-    }
+  this.postForm=this.fb.group({
+    titre : ['', [Validators.required, Validators.minLength(3)]],
+    description: ['', [Validators.required]],
+    categorie:['', [Validators.required]],
+    date:['', [Validators.required]],
+  })
+      }
   addPost(){
     this.newPost.id=(this.posts.length)+1
 
