@@ -17,6 +17,7 @@
             <th style="text-align:center;">Description</th>
             <th style="text-align:center;">Catégorie</th>
             <th style="text-align:center;">Date</th>
+            <th style="text-align:center;"></th>
 
         </tr>
         </thead>
@@ -26,6 +27,9 @@
             <td style="text-align:center;">{{ post.description }}</td>
             <td style="text-align:center;">{{ post.categorie}}</td>
             <td style="text-align:center;">{{ post.date }}</td>
+            <td style="text-align:center;">                
+              <button class="btn-danger m-2" (click)="deletePost(post)">Supprimer </button>
+            </td>
                 
         </tr>
         </tbody>

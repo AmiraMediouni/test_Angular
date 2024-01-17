@@ -26,5 +26,10 @@ export class PostService {
     return this.http.put<Post[]>(url,post)
 
   }
+  deletePost(post: Post | number): Observable<Post[]>{
+    const id = typeof post === 'number' ? post : post.id;
+    const url=this.postsUrl+'/'+id
+    return this.http.put<Post[]>(url,post)
+  }
   
 }
