@@ -11,17 +11,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { PostService } from './post.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
-
-const appRoutes:Routes=[
-  
-  { path:"" , component:ListPostComponent },
-  { path:"list" , component:ListPostComponent },
-  { path:"add" , component:AddPostComponent },
-  { path:"update", component:UpdatePostComponent },
-  { path:"navbar", component:NavbarComponent } 
-
-]
 
 @NgModule({
   declarations: [
@@ -30,14 +21,16 @@ const appRoutes:Routes=[
     AddPostComponent,
     UpdatePostComponent,
     NavbarComponent
-  ],
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot({
+    })
 
   ],
   providers: [PostService],

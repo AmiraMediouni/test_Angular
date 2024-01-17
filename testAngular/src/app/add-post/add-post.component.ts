@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostService } from '../post.service';
 import { Router } from '@angular/router';
+import { NotifierService } from '../notifier.service';
 
 @Component({
   selector: 'app-add-post',
@@ -9,8 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-post.component.css']
 })
 export class AddPostComponent {
+ 
   postForm!: FormGroup
-   get titre(){
+  get titre(){
     return this.postForm.get('titre')
   }
   get description(){
@@ -31,22 +33,27 @@ newPost:any={
   date:'',
 
 }
-constructor(private postService:PostService,private router:Router,private fb:FormBuilder){}
+constructor(private postService:PostService,private router:Router, private notifier:NotifierService){}
 ngOnInit(): void {
-  this.postForm=this.fb.group({
-    titre : ['', [Validators.required, Validators.minLength(3)]],
-    description: ['', [Validators.required]],
-    categorie:['', [Validators.required]],
-    date:['', [Validators.required]],
+
+  this.postForm=new FormGroup({
+    titre:new FormControl('', [Validators.required, Validators.minLength(3)]),
+    description:new FormControl('', [Validators.required]),
+    categorie:new FormControl('', [Validators.required]),
+    date:new FormControl('', [Validators.required])
   })
-      }
+  this.postService.getPosts()
+    .subscribe(data => this.posts=data)
+    
+  }
   addPost(){
     this.newPost.id=(this.posts.length)+1
 
           this.postService.addPost(this.newPost)
           .subscribe((post)=>{
             this.posts=[post, ...this.posts]
-          })         
+          })     
+          this.notifier.showSuccess('Publication ajoutée avec succès')
           this.router.navigate(['/list'])
 
   }

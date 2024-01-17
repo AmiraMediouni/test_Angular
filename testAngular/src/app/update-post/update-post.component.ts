@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostService } from '../post.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NotifierService } from '../notifier.service';
 
 @Component({
   selector: 'app-update-post',
@@ -31,18 +32,18 @@ export class UpdatePostComponent {
    date:''
  
  }
- constructor(private postService:PostService,private router:Router,private fb:FormBuilder){}
+ constructor(private postService:PostService,private router:Router, private notifier:NotifierService){}
  ngOnInit(): void {
-   this.postForm=this.fb.group({
-     titre : ['', [Validators.required, Validators.minLength(3)]],
-     description: ['', [Validators.required]],
-     categorie:['', [Validators.required]],
-     date:['', [Validators.required]],
-   })
+   
+  this.postForm=new FormGroup({
+    titre:new FormControl('', [Validators.required, Validators.minLength(3)]),
+    description:new FormControl('', [Validators.required]),
+    categorie:new FormControl('', [Validators.required]),
+    date:new FormControl('', [Validators.required])
+  })
       
   this.postService.getPosts()
     .subscribe(data => this.posts=data)
-
 
     }
   editPost(post:any){
@@ -57,6 +58,7 @@ export class UpdatePostComponent {
     this.postService.updatePost(this.post)
     .subscribe(data=>{
     })
+    this.notifier.showSuccess('Publication modifiée avec succès')
     this.updt=false
   }
 
