@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostService } from '../post.service';
 import Swal from 'sweetalert2';
@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
   templateUrl: './list-post.component.html',
   styleUrls: ['./list-post.component.css']
 })
-export class ListPostComponent {
+export class ListPostComponent implements OnInit{
   public posts:any=[]
  
 constructor(private postService:PostService,private router:Router){}
@@ -31,7 +31,9 @@ ngOnInit(): void {
             this.posts=this.posts.filter
             ((post: { id: any; })=>post.id!=postt.id)
 
-          })          
+          })
+          this.ngOnInit()
+                    
         } else if (result.isDenied) {
           Swal.fire("Vous avez annulé la suppression");
 

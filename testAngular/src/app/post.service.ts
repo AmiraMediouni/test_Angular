@@ -29,7 +29,7 @@ export class PostService {
   deletePost(post: Post | number): Observable<Post[]>{
     const id = typeof post === 'number' ? post : post.id;
     const url=this.postsUrl+'/'+id
-    return this.http.put<Post[]>(url,post)
+    return this.http.delete<Post[]>(url)
   }
   
 }

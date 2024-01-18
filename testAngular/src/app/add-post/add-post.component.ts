@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostService } from '../post.service';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { NotifierService } from '../notifier.service';
   templateUrl: './add-post.component.html',
   styleUrls: ['./add-post.component.css']
 })
-export class AddPostComponent {
+export class AddPostComponent implements OnInit{
  
   postForm!: FormGroup
   get titre(){
